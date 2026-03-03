@@ -42,7 +42,7 @@ jobs:
 
       - name: Build
         shell: bash
-        run: cmake --build build --config Release
+        run: cmake --build build --config Release --target vinylwerk_cli
 
       - name: Collect and Package
         shell: bash
