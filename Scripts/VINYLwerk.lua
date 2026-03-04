@@ -307,6 +307,10 @@ function main()
     gfx.set(0.6, 0.6, 0.6, 1)
     gfx.x, gfx.y = 20, gfx.h - 25 * scale
     gfx.drawstr(status_msg)
+    gfx.set(0.35, 0.35, 0.35, 1)
+    gfx.setfont(1, "Arial", math.floor(11 * scale))
+    gfx.x, gfx.y = gfx.w - 60, gfx.h - 20 * scale
+    gfx.drawstr("v1.34.0")
     last_mouse = gfx.mouse_cap & 1 == 1
     if char >= 0 then reaper.defer(main) end
     gfx.update()
@@ -314,5 +318,5 @@ end
 
 reaper.atexit(function() save_state() clear_v_markers() end)
 local sx, sy, sw, sh = load_state()
-gfx.init("VINYLwerk", sw, sh, 0, sx, sy)
+gfx.init("VINYLwerk v1.34.0", sw, sh, 0, sx, sy)
 main()
