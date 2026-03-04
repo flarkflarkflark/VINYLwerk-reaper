@@ -6,7 +6,7 @@ if (-not (Test-Path $reaperPath)) {
     exit 1
 }
 
-$installDir = "$reaperPath\ScriptslarkAUDIO\VINYLwerk"
+$installDir = "$reaperPath\Scripts\flarkAUDIO\VINYLwerk"
 if (-not (Test-Path $installDir)) {
     New-Item -ItemType Directory -Path $installDir -Force | Out-Null
 }
@@ -15,10 +15,10 @@ if (-not (Test-Path $installDir)) {
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Copy-Item "$scriptDir\..\Scripts\VINYLwerk.lua" "$installDir" -Force
 
-if (Test-Path "$scriptDir\..uildinylwerk_cli_artefacts\Releaseinylwerk_cli.exe") {
-    Copy-Item "$scriptDir\..uildinylwerk_cli_artefacts\Releaseinylwerk_cli.exe" "$installDir" -Force
-} elseif (Test-Path "$scriptDirinylwerk_cli.exe") {
-    Copy-Item "$scriptDirinylwerk_cli.exe" "$installDir" -Force
+if (Test-Path "$scriptDir\..\build\vinylwerk_cli_artefacts\Release\vinylwerk_cli.exe") {
+    Copy-Item "$scriptDir\..\build\vinylwerk_cli_artefacts\Release\vinylwerk_cli.exe" "$installDir" -Force
+} elseif (Test-Path "$scriptDir\vinylwerk_cli.exe") {
+    Copy-Item "$scriptDir\vinylwerk_cli.exe" "$installDir" -Force
 }
 
 Write-Host "Successfully installed to $installDir" -ForegroundColor Green
