@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g. v1.34.0)'
+        required: true
+        default: 'v1.34.0'
 
 permissions:
   contents: write
@@ -48,8 +54,8 @@ jobs:
         shell: bash
         run: |
           mkdir -p release-files
-          VERSION=${{ github.ref_name }}
-          
+          VERSION=${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}
+
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
             CLI_BIN=$(find build -name "vinylwerk_cli.exe" | head -1)
             PKG_NAME="VINYLwerk-Windows-$VERSION.zip"
@@ -79,6 +85,7 @@ jobs:
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}
           files: release-files/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
