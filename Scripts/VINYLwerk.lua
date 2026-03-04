@@ -150,7 +150,8 @@ function run_backend(mode)
         if is_windows then
             os.execute("start /B \"\" " .. cmd .. " > NUL 2>&1")
         else
-            os.execute(cmd .. " > /dev/null 2>&1 &")
+            local dbg = io.open("/tmp/vw_cmd.txt", "w") dbg:write(cmd) dbg:close()
+            os.execute(cmd .. " > /tmp/vw_err.txt 2>&1 &")
         end
         poll_start_time = reaper.time_precise()
     else
